@@ -13,4 +13,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+    <EditText
+        android:id="@+id/et_main_fullname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="enter a fullname ..."
+        android:background="@drawable/shape_edittext"
+        android:padding="12dp"
+        android:layout_margin="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_main_add"
+        app:layout_constraintStart_toStartOf="parent"
+        android:inputType="text" />
+
+    <ImageButton
+        android:id="@+id/btn_main_add"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/shape_circle_accent"
+        app:srcCompat="@drawable/ic_add_white_24dp"
+        android:scaleType="centerInside"
+        android:layout_margin="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

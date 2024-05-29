@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
 
     private ArrayList<String> contacts = new ArrayList<>();
+
     public ContactAdapter() {
         contacts.add("Ruthann Trustrie");
         contacts.add("Peadar Dawtrey");
@@ -36,6 +37,11 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         contacts.add("Hamil Callery");
         contacts.add("Karol Syer");
 
+    }
+
+    public void addContact(String fullname) {
+        contacts.add(0, fullname);
+        notifyItemInserted(0);
     }
 
     @NonNull

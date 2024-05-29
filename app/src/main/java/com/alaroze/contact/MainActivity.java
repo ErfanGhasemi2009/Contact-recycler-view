@@ -1,6 +1,10 @@
 package com.alaroze.contact;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,5 +33,17 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         adapter = new ContactAdapter();
         recyclerView.setAdapter(adapter);
+
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) EditText etFullname = findViewById(R.id.et_main_fullname);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) ImageButton btnAdd = findViewById(R.id.btn_main_add);
+
+        btnAdd.setOnClickListener(v -> {
+            if (etFullname.length() > 0){
+                adapter.addContact(etFullname.getText().toString());
+                recyclerView.scrollToPosition(0);
+                etFullname.setText("");
+            }
+        });
+
     }
 }
