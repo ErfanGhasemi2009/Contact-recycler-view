@@ -14,8 +14,9 @@ import java.util.ArrayList;
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
 
     private ArrayList<String> contacts = new ArrayList<>();
-
-    public ContactAdapter() {
+    ItemEventListener itemEventListener;
+    public ContactAdapter(ItemEventListener itemEventListener) {
+        this.itemEventListener = itemEventListener;
         contacts.add("Ruthann Trustrie");
         contacts.add("Peadar Dawtrey");
         contacts.add("Felipe Bradtke");
@@ -43,6 +44,10 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         contacts.add(0, fullname);
         notifyItemInserted(0);
     }
+    public void editContact(String fullname, int position){
+        contacts.set(position, fullname);
+        notifyItemChanged(position);
+    }
 
     @NonNull
     @Override
@@ -61,7 +66,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         return contacts.size();
     }
 
-    public static class ContactViewHolder extends RecyclerView.ViewHolder {
+    public class ContactViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvFirstChar;
         TextView tvFullname;
@@ -73,11 +78,26 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
             tvFirstChar = itemView.findViewById(R.id.tv_item_firstChar);
             tvFullname = itemView.findViewById(R.id.tv_item_fullname);
             ivCall = itemView.findViewById(R.id.iv_item_call);
+            itemView.setOnClickListener(v -> {
+
+                itemEventListener.onItemViewClick(tvFullname.getText().toString(), getPosition());
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    contacts.remove(getAdapterPosition());
+                    notifyItemRemoved(getAdapterPosition());
+                    return false;
+                }
+            });
         }
 
         public void onBindContact(String fullname) {
             tvFirstChar.setText(fullname.substring(0, 1));
             tvFullname.setText(fullname);
         }
+    }
+    interface ItemEventListener{
+        void onItemViewClick(String fullname, int position);
     }
 }
